@@ -1,6 +1,6 @@
 package br.com.gabryel.financeapp.investment;
 
-import java.util.Date;
+import br.com.gabryel.financeapp.date.LocalDate;
 
 /**
  * Simple implementation of a movement.
@@ -9,22 +9,33 @@ import java.util.Date;
  */
 public class SimpleMovement implements Movement {
 
-    private final Date movementDate;
+	private final LocalDate movementDate;
 
-    private final double value;
+	private final double value;
 
-    public SimpleMovement(Date movementDate, double value) {
-        this.movementDate = movementDate;
-        this.value = value;
-    }
+	public SimpleMovement(LocalDate movementDate, Movement... movements) {
+		this.movementDate = movementDate;
+		double partialValue = 0;
 
-    @Override
-    public Date getMovementDate() {
-        return movementDate;
-    }
+		for (Movement mov : movements) {
+			partialValue += mov.getValue();
+		}
 
-    @Override
-    public double getValue() {
-        return value;
-    }
+		this.value = partialValue;
+	}
+
+	public SimpleMovement(LocalDate movementDate, double value) {
+		this.movementDate = movementDate;
+		this.value = value;
+	}
+
+	@Override
+	public LocalDate getMovementDate() {
+		return movementDate;
+	}
+
+	@Override
+	public double getValue() {
+		return value;
+	}
 }

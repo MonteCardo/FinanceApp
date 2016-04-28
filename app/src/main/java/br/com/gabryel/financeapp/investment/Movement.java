@@ -1,7 +1,6 @@
 package br.com.gabryel.financeapp.investment;
 
-import java.util.Calendar;
-import java.util.Date;
+import br.com.gabryel.financeapp.date.LocalDate;
 
 /**
  * Interface used to define what are the minimum requirements of a movement
@@ -10,7 +9,17 @@ import java.util.Date;
  */
 public interface Movement {
 
-    Date getMovementDate();
+	/**
+	 * Get the base date of a movement
+	 *
+	 * @return
+	 */
+	LocalDate getMovementDate();
 
-    double getValue();
+	/**
+	 * Get the value of a movement
+	 *
+	 * @return
+	 */
+	double getValue();
 }
