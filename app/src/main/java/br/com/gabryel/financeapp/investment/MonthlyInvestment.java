@@ -1,9 +1,10 @@
 package br.com.gabryel.financeapp.investment;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +14,6 @@ import java.util.TreeMap;
 import br.com.gabryel.financeapp.calendar.DataPoint;
 import br.com.gabryel.financeapp.calendar.Periodicity;
 import br.com.gabryel.financeapp.calendar.Recurrence;
-import br.com.gabryel.financeapp.date.LocalDate;
-import br.com.gabryel.financeapp.date.SimpleLocalDate;
 
 /**
  * Simple representation of an monthly investment.
@@ -49,13 +48,41 @@ public class MonthlyInvestment implements Investment {
 	}
 
 	@Override
-	public List<DataPoint> getRowsUntil(Periodicity type, LocalDate localDate) {
-		while (!yearRows.containsKey(localDate.getYear())) {
+	public List<DataPoint> getRows(Periodicity type, LocalDate from, LocalDate to) {
+		while (!yearRows.containsKey(from.getYear())) {
+			createNextYear();
+		}
+
+		while (!yearRows.containsKey(to.getYear())) {
 			createNextYear();
 		}
 
 		List<DataPoint> rows = new ArrayList<>();
-		for (int i = yearRows.firstKey(); i <= localDate.getYear(); i++) {
+		for (int i = from.getYear(); i <= to.getYear(); i++) {
+			switch (type) {
+				case YEAR:
+					rows.add(yearRows.get(i));
+					break;
+				case MONTH:
+					rows.addAll(yearRows.get(i).getMonthRows());
+					break;
+				case DAY:
+					rows.addAll(yearRows.get(i).getDayRows());
+					break;
+			}
+		}
+
+		return rows;
+	}
+
+	@Override
+	public List<DataPoint> getRows(Periodicity type, LocalDate to) {
+		while (!yearRows.containsKey(to.getYear())) {
+			createNextYear();
+		}
+
+		List<DataPoint> rows = new ArrayList<>();
+		for (int i =yearRows.firstKey(); i <= to.getYear(); i++) {
 			switch (type) {
 				case YEAR:
 					rows.add(yearRows.get(i));
@@ -228,14 +255,12 @@ public class MonthlyInvestment implements Investment {
 			lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 			DayPoint yesterday = null;
 			for (int day = 1; day <= lastDay; day++) {
-				LocalDate date = new SimpleLocalDate(cal);
+				LocalDate date = LocalDate.of(year, month, day);
 				yesterday = new DayPoint(date, yesterday);
 				days.put(day, yesterday);
 
 				investedPeriod += yesterday.getInvestedPeriod();
 				netGainPeriod += yesterday.getNetGainPeriod();
-
-				cal.add(Calendar.DAY_OF_MONTH, 1);
 			}
 		}
 
@@ -245,7 +270,7 @@ public class MonthlyInvestment implements Investment {
 			this.unusedDays = new ArrayList<>(lastMonth.days.values());
 
 			Calendar cal = getStartOfMonth();
-			LocalDate date = new SimpleLocalDate(cal);
+			LocalDate date = LocalDate.of(year, month, 1);
 
 			DayPoint yesterday = unusedDays.get(unusedDays.size() - 1);
 			yesterday = new DayPoint(date, yesterday, unusedDays.remove(0), lastMonth.unusedDays);
@@ -256,8 +281,7 @@ public class MonthlyInvestment implements Investment {
 				investedPeriod += yesterday.getInvestedPeriod();
 				netGainPeriod += yesterday.getNetGainPeriod();
 
-				cal.add(Calendar.DAY_OF_MONTH, 1);
-				date = new SimpleLocalDate(cal);
+				date = LocalDate.of(year, month, day);
 
 				if (unusedDays.size() > 0) {
 					yesterday = new DayPoint(date, yesterday, unusedDays.remove(0));
@@ -361,7 +385,7 @@ public class MonthlyInvestment implements Investment {
 		DayPoint(LocalDate date) {
 			this.date = date;
 
-			LocalDate today = new SimpleLocalDate(new Date());
+			LocalDate today = LocalDate.now();
 			if (today.isAfter(date)) {
 				computeMovement(MonthlyInvestment.this.movements.get(date));
 				return;

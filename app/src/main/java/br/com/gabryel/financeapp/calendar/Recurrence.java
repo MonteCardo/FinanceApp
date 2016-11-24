@@ -1,6 +1,7 @@
 package br.com.gabryel.financeapp.calendar;
 
-import br.com.gabryel.financeapp.date.LocalDate;
+
+import org.threeten.bp.LocalDate;
 
 /**
  * Matcher for a recurrence, says if the date conform with the rules.

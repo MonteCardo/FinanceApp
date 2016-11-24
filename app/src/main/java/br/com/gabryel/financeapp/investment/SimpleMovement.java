@@ -1,6 +1,6 @@
 package br.com.gabryel.financeapp.investment;
 
-import br.com.gabryel.financeapp.date.LocalDate;
+import org.threeten.bp.LocalDate;
 
 /**
  * Simple implementation of a movement.
