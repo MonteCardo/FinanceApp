@@ -1,5 +1,7 @@
 package br.com.gabryel.financeapp.investment
 
+import org.joda.money.Money
+import org.joda.money.MoneyUtils
 import org.threeten.bp.LocalDate
 
 /**
@@ -7,25 +9,20 @@ import org.threeten.bp.LocalDate
  *
  * Created by gabryel on 04/04/16.
  */
-class SimpleMovement : Movement {
+class SimpleMovement(override val movementDate: LocalDate = LocalDate.now(),
+                     override val investedPeriod: Money) : Movement {
 
-    override val movementDate: LocalDate
+    private val ZERO = Money.zero(investedPeriod.currencyUnit)
 
-    override val value: Double
+    override val investedTotal: Money
+        get() = investedPeriod
 
-    constructor(movementDate: LocalDate, vararg movements: Movement) {
-        this.movementDate = movementDate
-        var partialValue = 0.0
+    override val available: Money
+        get() = investedPeriod
 
-        for (mov in movements) {
-            partialValue += mov.value
-        }
+    override val netGainPeriod: Money
+        get() = ZERO
 
-        this.value = partialValue
-    }
-
-    constructor(movementDate: LocalDate, value: Double) {
-        this.movementDate = movementDate
-        this.value = value
-    }
+    override val netGainTotal: Money
+        get() = ZERO
 }

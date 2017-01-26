@@ -1,7 +1,5 @@
 package br.com.gabryel.financeapp.investment
 
-import java.util.ArrayList
-
 /**
  * Simple implementation of Wallet class.
  *
@@ -10,7 +8,7 @@ import java.util.ArrayList
  */
 class SimpleWallet(override val name: String) : Wallet {
 
-    private val investments = ArrayList<Moneyable>()
+    private val investments = mutableListOf<Moneyable>()
 
     override fun add(investment: Moneyable) {
         investments.add(investment)

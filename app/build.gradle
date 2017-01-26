@@ -30,6 +30,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // https://mvnrepository.com/artifact/org.joda/joda-money
+    compile group: 'org.joda', name: 'joda-money', version: '0.12'
 }
 repositories {
     mavenCentral()

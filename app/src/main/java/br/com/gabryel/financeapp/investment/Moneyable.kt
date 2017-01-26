@@ -8,7 +8,6 @@ package br.com.gabryel.financeapp.investment
 
 // TODO GIVE THIS INTERFACE A BETTER NAME, GODDAMNIT
 interface Moneyable {
-
     /**
      * Get name of the investment
      *

@@ -1,9 +1,7 @@
 package br.com.gabryel.financeapp.investment
 
+import br.com.gabryel.financeapp.calendar.DateRange
 import org.threeten.bp.LocalDate
-
-import br.com.gabryel.financeapp.calendar.DataPoint
-import br.com.gabryel.financeapp.calendar.Periodicity
 
 /**
  * Interface used to define what are the minimum requirements of an investment
@@ -20,23 +18,10 @@ interface Investment : Moneyable {
     fun add(movement: Movement)
 
     /**
-     * Create rows until given date
+     * Get rows containing new information
      *
-     * @param to        Representation of the last asked day
-     * @param type      Periodicity of the info on a row
-     *
-     * @return
+     * @param finalDate Final date to calculate
+     * @return List of relevant states
      */
-    fun getRows(type: Periodicity, to: LocalDate): List<DataPoint>
-
-    /**
-     * Create rows from certain date to another
-     *
-     * @param from        Representation of the first asked day
-     * @param to        Representation of the last asked day
-     * @param type      Periodicity of the info on a row
-     *
-     * @return
-     */
-    fun getRows(type: Periodicity, from: LocalDate, to: LocalDate): List<DataPoint>
+    fun getRows(finalDate: LocalDate): List<State>
 }
