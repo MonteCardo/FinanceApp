@@ -1,7 +1,6 @@
 package br.com.gabryel.financeapp.investment
 
 import org.joda.money.Money
-import org.joda.money.MoneyUtils
 import org.threeten.bp.LocalDate
 
 /**
@@ -9,7 +8,8 @@ import org.threeten.bp.LocalDate
  *
  * Created by gabryel on 04/04/16.
  */
-class SimpleMovement(override val movementDate: LocalDate = LocalDate.now(),
+class SimpleMovement(override val identification: String = "",
+                     override val movementDate: LocalDate = LocalDate.now(),
                      override val investedPeriod: Money) : Movement {
 
     private val ZERO = Money.zero(investedPeriod.currencyUnit)

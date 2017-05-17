@@ -1,5 +1,6 @@
 package br.com.gabryel.financeapp.investment
 
+import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import org.threeten.bp.LocalDate
 
@@ -10,37 +11,32 @@ import org.threeten.bp.LocalDate
  */
 interface State {
     /**
-     * Get the invested amount on a moment
-     *
-     * @return
+     * Identification of the current state
+     */
+    val identification: String
+
+    /**
+     * Invested amount on a moment
      */
     val investedPeriod: Money
 
     /**
-     * Get the net gain on a moment
-     *
-     * @return
+     * Net gain on a moment
      */
     val netGainPeriod: Money
 
     /**
-     * Get the total invested until this moment
-     *
-     * @return
+     * Total invested until this moment
      */
     val investedTotal: Money
 
     /**
-     * Get the total net gain until this moment
-     *
-     * @return
+     * Total net gain until this moment
      */
     val netGainTotal: Money
 
     /**
-     * Get the available quantity of money on a moment
-     *
-     * @return
+     * Available quantity of money on a moment
      */
     val available: Money
 }
@@ -52,4 +48,15 @@ interface DatedState : State {
      * @return
      */
     val movementDate: LocalDate
+}
+
+val NO_MONEY: Money = Money.zero(CurrencyUnit.USD)
+
+class DummyState(override val identification: String,
+                 override val investedPeriod: Money = NO_MONEY,
+                 override val netGainPeriod: Money = NO_MONEY,
+                 override val investedTotal: Money = NO_MONEY,
+                 override val netGainTotal: Money = NO_MONEY) : State {
+
+    override val available: Money = investedTotal + netGainTotal
 }

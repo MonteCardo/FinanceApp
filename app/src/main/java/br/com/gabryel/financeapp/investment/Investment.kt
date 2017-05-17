@@ -1,6 +1,5 @@
 package br.com.gabryel.financeapp.investment
 
-import br.com.gabryel.financeapp.calendar.DateRange
 import org.threeten.bp.LocalDate
 
 /**

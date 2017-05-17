@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="fill_horizontal"
+        android:columnCount="4"
+        android:rowCount="2">
+
+        <TextView
+            android:id="@+id/identification"
+            android:layout_width="64dp"
+            android:layout_margin="16dp"
+            android:layout_rowSpan="2"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="@color/colorListIdentification"
+            android:textSize="12sp"
+            android:textStyle="bold"/>
+        <!-- TODO Create style for items above -->
+
+        <TextView
+            android:id="@+id/investedPeriod"
+            android:layout_width="64dp"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start|center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/netGainPeriod"
+            android:layout_width="64dp"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start|center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/available"
+            android:layout_width="64dp"
+            android:layout_column="3"
+            android:layout_margin="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_row="0"
+            android:layout_rowSpan="2"
+            android:gravity="center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/investedTotal"
+            android:layout_width="64dp"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start|center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/netGainTotal"
+            android:layout_width="64dp"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="start|center_vertical"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="14sp"/>
+    </GridLayout>
+</android.widget.LinearLayout>
