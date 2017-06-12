@@ -1,4 +1,4 @@
-package br.com.gabryel.financeapp.investment
+package br.com.gabryel.financeapp.investment.data
 
 /**
  * Interface used to define what are the minimum requirements of a movement

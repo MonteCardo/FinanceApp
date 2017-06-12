@@ -34,7 +34,7 @@
                       xmlns:app="http://schemas.android.com/apk/res-auto"
                       xmlns:tools="http://schemas.android.com/tools"
                       android:id="@+id/graphic"
-                      android:name="br.com.gabryel.financeapp.GraphFragment"
+                      android:name="br.com.gabryel.financeapp.investment.GraphFragment"
                       android:layout_width="match_parent"
                       android:layout_height="192dp"
                       tools:layout="@layout/fragment_graph"/>
@@ -43,7 +43,7 @@
                       xmlns:app="http://schemas.android.com/apk/res-auto"
                       xmlns:tools="http://schemas.android.com/tools"
                       android:id="@+id/investment_list"
-                      android:name="br.com.gabryel.financeapp.DataPointFragment"
+                      android:name="br.com.gabryel.financeapp.investment.DataPointFragment"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       app:layout_behavior="@string/appbar_scrolling_view_behavior"

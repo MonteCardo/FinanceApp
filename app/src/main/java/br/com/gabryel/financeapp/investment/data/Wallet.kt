@@ -1,4 +1,4 @@
-package br.com.gabryel.financeapp.investment
+package br.com.gabryel.financeapp.investment.data
 
 /**
  * Representation of an Wallet

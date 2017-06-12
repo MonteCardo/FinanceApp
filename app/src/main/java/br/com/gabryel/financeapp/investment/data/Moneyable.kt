@@ -1,4 +1,4 @@
-package br.com.gabryel.financeapp.investment
+package br.com.gabryel.financeapp.investment.data
 
 /**
  * Means that you can get money data from the classes inheriting this interface

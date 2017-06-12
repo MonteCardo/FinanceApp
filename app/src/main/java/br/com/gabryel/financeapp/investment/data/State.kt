@@ -1,8 +1,7 @@
-package br.com.gabryel.financeapp.investment
+package br.com.gabryel.financeapp.investment.data
 
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
-import org.threeten.bp.LocalDate
 
 /**
  * Interface defining a point of data for use in a table or graph
@@ -47,7 +46,7 @@ interface DatedState : State {
      *
      * @return
      */
-    val movementDate: LocalDate
+    val movementDate: org.threeten.bp.LocalDate
 }
 
 val NO_MONEY: Money = Money.zero(CurrencyUnit.USD)

@@ -1,4 +1,4 @@
-package br.com.gabryel.financeapp.investment
+package br.com.gabryel.financeapp.investment.data
 
 import br.com.gabryel.financeapp.calendar.DateRange
 import org.threeten.bp.LocalDate
@@ -16,12 +16,12 @@ class MonthlyInvestment(override val name: String, private val monthlyInterest: 
     }
 
     override fun getRows(finalDate: LocalDate): List<State> {
-        if (movements.size == 0){
+        if (movements.size == 0) {
             return emptyList()
         }
 
-        val allStates = mutableListOf<State>()
-        val statesByDay = mutableMapOf<Int, State>()
+//        val allStates = mutableListOf<State>()
+//        val statesByDay = mutableMapOf<Int, State>()
         val range = DateRange(finalDate, movements.map { it.movementDate }.min() ?: finalDate)
 
         for (date in range) {
@@ -30,7 +30,7 @@ class MonthlyInvestment(override val name: String, private val monthlyInterest: 
                 continue
             }
 
-            val movementsOfTheDay = movements.filter { it.movementDate == date }
+//            val movementsOfTheDay = movements.filter { it.movementDate == date }
             // val previousDay = statesByDay.getOrElse(date.dayOfMonth, )
         }
 
