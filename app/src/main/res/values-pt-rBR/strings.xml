@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Configurações</string>
+    <string name="title_activity_investment">Investimentos</string>
+    <string name="title_activity_login">Entrar</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar ou Registrar</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="error_invalid_email">O endereço de e-mail informado é inválido</string>
+    <string name="error_invalid_password">A senha informada é curta demais</string>
+    <string name="error_incorrect_password">Senha incorreta</string>
+    <string name="error_field_required">Este campo é necessário</string>
+    <string name="movement_value">Valor</string>
+    <string name="movement_description">Descrição</string>
+</resources>
