@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
+import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import br.com.montecardo.finanseer.R
 import br.com.montecardo.finanseer.investment.data.Movement
 import br.com.montecardo.finanseer.persistence.SingletonDAO
@@ -35,24 +37,58 @@ class MovementDialogFragment : DialogFragment() {
         val invId = arguments?.getString(MovementDialogFragment.INVESTMENT_KEY) ?: ""
         val investment = SingletonDAO.getInvestment(invId)
 
-        if (investment != null) {
-            builder.setNegativeButton("Cancelar", { _, _ -> movAddListener.onDialogNegativeClick() })
-                    .setPositiveButton("OK", { _, _ ->
-
-                        val name = view.mov_dlg_name.text.toString()
-                        val value = Money.of(CurrencyUnit.USD, view.mov_dlg_quantity.text.toString().toDouble())
-
-                        val mov = Movement(invId, name = name, date = LocalDate.now(), money = value)
-                        movAddListener.onDialogPositiveClick(mov)
-                    })
-        } else {
+        if (investment == null) {
             Snackbar.make(view, "Ocorreu um erro carregando o investimento desejado.",
                     Snackbar.LENGTH_SHORT)
             Log.d(javaClass.simpleName, "No investmentId or invalid investmentId passed.")
             activity.onBackPressed()
+            return builder.create()
         }
 
-        return builder.create()
+        return generateButton(builder, view, invId)
+    }
+
+    private fun generateButton(builder: AlertDialog.Builder, view: View, invId: String): AlertDialog {
+        val dialog = builder.setNegativeButton("Cancelar",
+                { _, _ -> movAddListener.onDialogNegativeClick() })
+                .setPositiveButton("OK", null)
+                .create()
+
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({ _: View ->
+            val nameDlg = view.mov_dlg_name
+            val qtDlg = view.mov_dlg_quantity
+            nameDlg.error = null
+            qtDlg.error = null
+
+            val name = nameDlg.text.toString()
+            val quantityText = qtDlg.text.toString()
+            val quantity = quantityText.toDoubleOrNull()
+
+            val fieldError = getString(R.string.error_field_required)
+            var focusView: View? = null
+            if (TextUtils.isEmpty(name)) {
+                nameDlg.error = fieldError
+                focusView = nameDlg
+            }
+
+            if (TextUtils.isEmpty(quantityText) || quantity == null) {
+                qtDlg.error = fieldError
+                focusView = qtDlg
+            }
+
+            focusView?.let {
+                it.requestFocus()
+                return@setOnClickListener
+            }
+
+            val value = Money.of(CurrencyUnit.USD, quantity ?: 0.0)
+            val mov = Movement(invId, name = name, date = LocalDate.now(), money = value)
+            movAddListener.onDialogPositiveClick(mov)
+            dialog.dismiss()
+        })
+
+        return dialog
     }
 
     override fun onAttach(context: Context) {
